@@ -75,7 +75,7 @@ namespace HairSalon.Tests
     {
       //Arrange, Act
       Stylist firstStylist = new Stylist("Jessica");
-      Stylist secondStylist = new Stylist("George");
+      Stylist secondStylist = new Stylist("Jessica");
 
       //Assert
       Assert.AreEqual(firstStylist, secondStylist);
