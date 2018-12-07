@@ -24,5 +24,17 @@ namespace HairSalon.Tests
       Client newClient = new Client("jerome", 1);
       Assert.AreEqual(typeof(Client), newClient.GetType());
     }
+
+    [TestMethod]
+    public void GetName_returnsName_string()
+    {
+      //Arrange
+      string name = "Jesicca";
+      Client newClient = new Client(name,1);
+      //Act
+      string result = newClient.GetName();
+      //Assert
+      Assert.AreEqual(name,result);
+    }
   }
 }
