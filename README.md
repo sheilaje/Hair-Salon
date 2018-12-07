@@ -45,7 +45,7 @@ _Create an MVC web application for a hair salon. The owner should be able to add
 
           > CREATE DATABASE Sheila_Stephen;
           > USE Sheila_Stephen;
-          > CREATE TABLE stylists (id serial PRIMARY KEY, sname VARCHAR(255));
+          > CREATE TABLE stylists (stylistId serial PRIMARY KEY, stylistName VARCHAR(255));
           > CREATE TABLE clients (clientId serial PRIMARY KEY, clientName VARCHAR(255), stylistId int);
 
 
