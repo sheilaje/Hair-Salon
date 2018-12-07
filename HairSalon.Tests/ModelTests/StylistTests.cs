@@ -31,7 +31,7 @@ namespace HairSalon.Tests
     public void GetName_ReturnsName_String()
     {
       //Arrange
-      string name = "Test Stylist";
+      string name = "Jessica";
       Stylist newStylist = new Stylist(name);
 
       //Act
@@ -40,5 +40,35 @@ namespace HairSalon.Tests
       //Assert
       Assert.AreEqual(name, result);
     }
+
+    [TestMethod]
+    public void GetAll_StylistEmptyAtFirst_List()
+    {
+      //Arrange, Act
+      int result = Stylist.GetAll().Count;
+
+      //Assert
+      Assert.AreEqual(0, result);
+    }
+
+    [TestMethod]
+    public void GetAll_ReturnsAllStylistObjects_stylistList()
+    {
+      //Arrange
+      string name1 = "Jessica";
+      string name2 = "George";
+      Stylist newStylist1 = new Stylist(name1);
+      newStylist1.Save();
+      Stylist newStylist2 = new Stylist(name2);
+      newStylist2.Save();
+      List<Stylist> newList = new List<Stylist> { newStylist1, newStylist2 };
+
+      //Act
+      List<Stylist> result = Stylist.GetAll();
+
+      //Assert
+      CollectionAssert.AreEqual(newList, result);
+    }
+
   }
 }
