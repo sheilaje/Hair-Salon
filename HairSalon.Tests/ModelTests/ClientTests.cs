@@ -6,14 +6,13 @@ using System;
 namespace HairSalon.Tests
 {
   [TestClass]
-  public class ClientTest
-  //: IDisposable
+  public class ClientTest: IDisposable
   {
 
-    // public void Dispose()
-    // {
-    //   Item.ClearAll();
-    // }
+    public void Dispose()
+    {
+      Client.ClearAll();
+    }
     public ClientTest()
     {
       DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=sheila_stephen_test;";
@@ -49,6 +48,38 @@ namespace HairSalon.Tests
       string result = newClient.GetName();
       //Assert
       Assert.AreEqual(updateName,result);
+    }
+
+    [TestMethod]
+    public void GetAll_ReturnsEmptyList_ClientList()
+    {
+      //Arrange
+      List<Client> newList = new List<Client> { };
+
+      //Act
+      List<Client> result = Client.GetAll();
+
+      //Assert
+      CollectionAssert.AreEqual(newList, result);
+    }
+
+    [TestMethod]
+    public void GetAll_ReturnsClients_ClientList()
+    {
+      //Arrange
+      string name1 = "Jo";
+      string name2 = "jen";
+      Client newClient1 = new Client(name1, 1);
+      Client newClient2 = new Client(name2, 1);
+      newClient1.Save(); //Save needs to be added for test to pass
+      newClient2.Save(); //Save needs to be added for test to pass
+      List<Client> newList = new List<Client> {newClient1, newClient2};
+
+      //Act
+      List<Client> result = Client.GetAll();
+
+      //Assert
+      CollectionAssert.AreEqual(newList, result);
     }
   }
 }
