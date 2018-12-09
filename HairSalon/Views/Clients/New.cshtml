@@ -2,11 +2,20 @@
   Layout = "_Layout";
 }
 
-<h1>Add a new client to @Model.GetName()</h1>
+<center><h1>Add a new client to @Model.GetName()</h1></center>
 
-<form action='/stylists/@Model.GetId()/clients' method='post'>
-  <input id='stylistId' name='stylistId' type='hidden' value='@Model.GetId()'>
-  <label for='clientName'>Client Name</label>
-  <input id='clientName' name='clientName' type='text'>
-  <button type='submit'>Add client</button>
+<div class = "container">
+<form action="/stylists/@Model.GetId()/clients" method="post">
+<div class = "form-group">
+  <input id="stylistId" name="stylistId" class = "form-control" type="hidden" value='@Model.GetId()'><br>
+</div>
+<div class = "form-group">
+  <label  for="clientName">client Name</label>
+  <input id="clientName" class = "form-control" name="clientName" type="text"><br>
+</div>
+
+  <center><button type="submit" class = "btn btn-success">Add client</button>
+  </center>
+
 </form>
+</div>

@@ -7,10 +7,10 @@
 <ol>
 @foreach (var client in @Model["client"])
 {
-  <li><a href='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()'>@client.GetName()</a></li>
+  <li><a href='/stylists/@Model["stylist"].GetId()/clients/@client.GetId()'><h3>@client.GetName()</h3></a></li>
 }
 </ol>
 
-<p><a href='/stylists/@Model["stylist"].GetId()/clients/new'>Add a new client</a></p>
-<p><a href='/stylists'>Return to Stylist list</a></p>
-<p><a href='/'>Return to Main Page</a></p>
+<h3><a href='/stylists/@Model["stylist"].GetId()/clients/new'>Add a new client</a></h3>
+<h3><a href='/stylists'>Return to Stylist list</a></h3>
+<h3><a href='/'>Return to Main Page</a></h3>
