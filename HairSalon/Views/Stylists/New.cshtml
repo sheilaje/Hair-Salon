@@ -2,13 +2,20 @@
   Layout = "_Layout";
 }
 
-<h1>Fill in the Stylist Details</h1>
+  <center><h1>Fill in the Stylist Details</h1></center>
 
-<form action="/stylists" method="post">
-  <label for="name">Stylist name:</label>
-  <input id="name" name="name" type="text">
-  <button type="submit">Add</button>
-</form>
+    <div class = "container">
+    <form action="/stylists" method="post">
+    <div class = "form-group">
+      <label for="name">Stylist name:</label>
+      <input id="name" name="name" class = "form-control" type="text"><br>
+    </div>
 
-<p><a href="/">Back home</a></p>
-<p><a href="/stylists">Back to Stylists.</a></p>
+      <center><button type="submit" class = "btn btn-success">Add</button>
+      </center>
+
+    </form>
+    </div>
+
+    <h3><a href="/">Back home</a></h3>
+    <h3><a href="/stylists">Back to Stylists.</a></h3>
