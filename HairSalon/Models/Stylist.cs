@@ -77,14 +77,13 @@ namespace HairSalon.Models
         bool nameEquality = this.GetName().Equals(newStylist.GetName());
         bool idEquality = this.GetId().Equals(newStylist.GetId());
         return (idEquality && nameEquality);
-        //fail the Equals test by not adding the Equals method
       }
     }
 
     public override int GetHashCode()
     {
       return this.GetName().GetHashCode();
-    } // add this method to get rid of the hashcode warning
+    }
 
     public void Save()
     {
@@ -112,9 +111,6 @@ namespace HairSalon.Models
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT * FROM stylists WHERE stylistId = (@searchId);";
-      // MySqlParameter idParameter = new MySqlParameter();
-      // idParameter.ParameterName = "@searchId";
-      // idParameter.ParameterValue = stylistId;
       cmd.Parameters.AddWithValue("@searchId", id);
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       int StylistId = 0;
@@ -141,9 +137,6 @@ namespace HairSalon.Models
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT * FROM clients WHERE stylistId = @stylistId;";
       MySqlParameter cliendId = new MySqlParameter();
-      // categoryId.ParameterName = "@categoryId";
-      // categoryName.ParameterValue = this._id;
-      // cmd.Parameters.Add(categoryId);
       cmd.Parameters.AddWithValue("@stylistId", this._id);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -163,9 +156,6 @@ namespace HairSalon.Models
         conn.Dispose();
       }
       return allStylistItems;
-      //Add following code to return dummy list to fail test method GetItems_RetrievesAllItemsWithCategory
-      //List<Item> allCategoryItems = new List<Item> {};
-      //return allCategoryItems;
     }
 
   }

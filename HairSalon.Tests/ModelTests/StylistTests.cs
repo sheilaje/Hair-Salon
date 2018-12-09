@@ -12,7 +12,7 @@ namespace HairSalon.Tests
     public void Dispose()
     {
       Stylist.ClearAll();
-      //Item.ClearAll();
+      Client.ClearAll();
     }
 
     public StylistTest()
@@ -33,10 +33,8 @@ namespace HairSalon.Tests
       //Arrange
       string name = "Jessica";
       Stylist newStylist = new Stylist(name);
-
       //Act
       string result = newStylist.GetName();
-
       //Assert
       Assert.AreEqual(name, result);
     }
@@ -46,7 +44,6 @@ namespace HairSalon.Tests
     {
       //Arrange, Act
       int result = Stylist.GetAll().Count;
-
       //Assert
       Assert.AreEqual(0, result);
     }
@@ -62,10 +59,8 @@ namespace HairSalon.Tests
       Stylist newStylist2 = new Stylist(name2);
       newStylist2.Save();
       List<Stylist> newList = new List<Stylist> { newStylist1, newStylist2 };
-
       //Act
       List<Stylist> result = Stylist.GetAll();
-
       //Assert
       CollectionAssert.AreEqual(newList, result);
     }
@@ -76,7 +71,6 @@ namespace HairSalon.Tests
       //Arrange, Act
       Stylist firstStylist = new Stylist("Jessica");
       Stylist secondStylist = new Stylist("Jessica");
-
       //Assert
       Assert.AreEqual(firstStylist, secondStylist);
     }
@@ -87,29 +81,43 @@ namespace HairSalon.Tests
       //Arrange
       Stylist testStylist = new Stylist("Jessica");
       testStylist.Save();
-
       //Act
       List<Stylist> result = Stylist.GetAll();
       List<Stylist> testList = new List<Stylist>{testStylist};
-
       //Assert
       CollectionAssert.AreEqual(testList, result);
     }
 
-    // [TestMethod]
-    // public void Find_ReturnsStylistInDatabase_Stylist()
-    // {
-    //   //Arrange
-    //   string name1 = "Work";
-    //   Stylist testStylist = new Stylist(name1);
-    //   testStylist.Save();
-    //
-    //   //Act
-    //   Stylist foundStylist = Stylist.Find(testStylist.GetId());
-    //
-    //   //Assert
-    //   Assert.AreEqual(testStylist, foundStylist);
-    // }
+    [TestMethod]
+    public void Find_ReturnsStylistInDatabase_Stylist()
+    {
+      //Arrange
+      string name1 = "Work";
+      Stylist testStylist = new Stylist(name1);
+      testStylist.Save();
+      //Act
+      Stylist foundStylist = Stylist.Find(testStylist.GetId());
+      //Assert
+      Assert.AreEqual(testStylist, foundStylist);
+    }
+
+    [TestMethod]
+    public void GetClients_RetrievesAllClientsWithStylists_ClientList()
+    {
+      //Arrange
+      string name1 = "Jensen";
+      Stylist testStylist = new Stylist(name1);
+      testStylist.Save();
+      Client firstClient = new Client("Jerusha", testStylist.GetId());
+      firstClient.Save();
+      Client secondClient = new Client("Joshua", testStylist.GetId());
+      secondClient.Save();
+      List<Client> testClientList = new List<Client> { firstClient, secondClient};
+      //Act
+      List<Client> resultClientList = testStylist.GetClient();
+      //Assert
+      CollectionAssert.AreEqual(testClientList, resultClientList);
+    }
 
   }
 }

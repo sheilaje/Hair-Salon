@@ -51,8 +51,7 @@ namespace HairSalon.Controllers
       List<Client> clientList = foundStylist.GetClient();
       model.Add("client", clientList);
       model.Add("stylist", foundStylist);
-      return View("Show", model); //Use RedirectToAction instead of View
+      return View("Show", model);
     }
-
   }
 }
