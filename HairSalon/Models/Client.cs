@@ -115,5 +115,73 @@ namespace HairSalon.Models
         conn.Dispose();
       }
     }
+
+    public static Client Find(int id)
+    {
+
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM `clients` WHERE clientId = @thisId;";
+      MySqlParameter thisId = new MySqlParameter();
+      // thisId.ParameterName = "@thisId";
+      // thisId.Value = id;
+      // cmd.Parameters.Add(thisId);
+      cmd.Parameters.AddWithValue("@thisId", id);
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      int clientId = 0;
+      string clientName = "";
+      int stylistId = 0;
+
+      while (rdr.Read())
+      {
+        clientId = rdr.GetInt32(0);
+        clientName = rdr.GetString(1);
+        stylistId = rdr.GetInt32(2);
+      }
+      Client newClient = new Client(clientName, stylistId, clientId);
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return newClient;
+
+      //To fail Find use below code:
+      //Item dummyItem = new Item("dummy item");
+      //return dummyItem;
+    }
+
+    public void Edit(string newName)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE clients SET clientName = @newClient WHERE clientId = @searchId;";
+      // MySqlParameter searchId = new MySqlParameter();
+      // searchId.ParameterName = "@searchId";
+      // searchId.Value = _id;
+      // cmd.Parameters.Add(searchId);
+      // MySqlParameter description = new MySqlParameter();
+      // description.ParameterName = "@newDescription";
+      // description.Value = newDescription;
+      // cmd.Parameters.Add(description);
+      MySqlParameter searchId = new MySqlParameter();
+      cmd.Parameters.AddWithValue("@searchId", this._id);
+      MySqlParameter description = new MySqlParameter();
+      cmd.Parameters.AddWithValue("@newClient", newName);
+      cmd.ExecuteNonQuery();
+      _name = newName;
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+
+      //To fail create empty Edit method and write tests
+    }
+
   }
 }

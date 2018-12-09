@@ -8,13 +8,13 @@ namespace HairSalon.Models
   {
     private int _id;
     private string _name;
-    //private List<Client> _clients;
+    private List<Client> _clients;
 
     public Stylist(string sName, int id = 0)
     {
       _name = sName;
       _id = id;
-      //_clients = new List<Client>{};
+      _clients = new List<Client>{};
     }
 
     public string GetName()
@@ -105,68 +105,68 @@ namespace HairSalon.Models
       }
     }
 
-    // public static Stylist Find(int id)
-    // {
-    //
-    //   MySqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-    //   cmd.CommandText = @"SELECT * FROM stylists WHERE id = (@searchId);";
-    //   // MySqlParameter idParameter = new MySqlParameter();
-    //   // idParameter.ParameterName = "@searchId";
-    //   // idParameter.ParameterValue = stylistId;
-    //   cmd.Parameters.AddWithValue("@stylistId", id);
-    //   MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-    //   int StylistId = 0;
-    //   string StylistName = "";
-    //   while(rdr.Read())
-    //   {
-    //     StylistId = rdr.GetInt32(0);
-    //     StylistName = rdr.GetString(1);
-    //   }
-    //   Stylist newStylist = new Stylist(StylistName, StylistId);
-    //   conn.Close();
-    //   if(conn != null)
-    //   {
-    //     conn.Dispose();
-    //   }
-    //   return newStylist;
-    // }
+    public static Stylist Find(int id)
+    {
 
-    // public List<Item> GetItems()
-    // {
-    //   List<Item> allStylistItems = new List<Item> {};
-    //   MySqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-    //   cmd.CommandText = @"SELECT * FROM items WHERE category_id = @category_id;";
-    //   MySqlParameter categoryId = new MySqlParameter();
-    //   // categoryId.ParameterName = "@categoryId";
-    //   // categoryName.ParameterValue = this._id;
-    //   // cmd.Parameters.Add(categoryId);
-    //   cmd.Parameters.AddWithValue("@category_id", this._id);
-    //
-    //   MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-    //
-    //   while(rdr.Read())
-    //   {
-    //     int itemId = rdr.GetInt32(0);
-    //     string itemDescription = rdr.GetString(1);
-    //     int itemStylistId = rdr.GetInt32(2);
-    //     Item newItem = new Item(itemDescription, itemStylistId, itemId);
-    //     allStylistItems.Add(newItem);
-    //   }
-    //
-    //   conn.Close();
-    //   if (conn != null)
-    //   {
-    //     conn.Dispose();
-    //   }
-    //   return allStylistItems;
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM stylists WHERE stylistId = (@searchId);";
+      // MySqlParameter idParameter = new MySqlParameter();
+      // idParameter.ParameterName = "@searchId";
+      // idParameter.ParameterValue = stylistId;
+      cmd.Parameters.AddWithValue("@searchId", id);
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      int StylistId = 0;
+      string StylistName = "";
+      while(rdr.Read())
+      {
+        StylistId = rdr.GetInt32(0);
+        StylistName = rdr.GetString(1);
+      }
+      Stylist newStylist = new Stylist(StylistName, StylistId);
+      conn.Close();
+      if(conn != null)
+      {
+        conn.Dispose();
+      }
+      return newStylist;
+    }
+
+    public List<Client> GetClient()
+    {
+      List<Client> allStylistItems = new List<Client> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM clients WHERE stylistId = @stylistId;";
+      MySqlParameter cliendId = new MySqlParameter();
+      // categoryId.ParameterName = "@categoryId";
+      // categoryName.ParameterValue = this._id;
+      // cmd.Parameters.Add(categoryId);
+      cmd.Parameters.AddWithValue("@stylistId", this._id);
+
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+      while(rdr.Read())
+      {
+        int itemId = rdr.GetInt32(0);
+        string itemDescription = rdr.GetString(1);
+        int itemStylistId = rdr.GetInt32(2);
+        Client newItem = new Client(itemDescription, itemStylistId, itemId);
+        allStylistItems.Add(newItem);
+      }
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return allStylistItems;
       //Add following code to return dummy list to fail test method GetItems_RetrievesAllItemsWithCategory
       //List<Item> allCategoryItems = new List<Item> {};
       //return allCategoryItems;
-    // }
+    }
 
   }
 }

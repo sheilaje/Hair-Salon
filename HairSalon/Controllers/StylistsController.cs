@@ -22,38 +22,37 @@ namespace HairSalon.Controllers
     }
 
     [HttpPost("/stylists")]
-    public ActionResult Create(string stylistName)
+    public ActionResult Create(string name)
     {
-      Stylist newStylist = new Stylist(stylistName);
+      Stylist newStylist = new Stylist(name);
       newStylist.Save();
       List<Stylist> allStylists = Stylist.GetAll();
       return RedirectToAction("Index");
     }
 
-    // [HttpGet("/categories/{id}")]
-    // public ActionResult Show(int id)
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Category selectedCategory = Category.Find(id);
-    //   List<Item> categoryItems = selectedCategory.GetItems();
-    //   model.Add("category", selectedCategory);
-    //   model.Add("items", categoryItems);
-    //   return View(model);
-    // }
+    [HttpGet("/stylists/{id}")]
+    public ActionResult Show(int id)
+    {
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Stylist selectedStylist = Stylist.Find(id);
+      List<Client> stylistClientsList= selectedStylist.GetClient();
+      model.Add("stylist", selectedStylist);
+      model.Add("client", stylistClientsList);
+      return View(model);
+    }
 
-    // This one creates new Items within a given Category, not new Categories:
-    // [HttpPost("/categories/{categoryId}/items")]
-    // public ActionResult Create(int categoryId, string itemDescription)
-    // {
-    //   Dictionary<string, object> model = new Dictionary<string, object>();
-    //   Category foundCategory = Category.Find(categoryId);
-    //   Item newItem = new Item(itemDescription, categoryId);
-    //   newItem.Save();
-    //   List<Item> categoryItems = foundCategory.GetItems();
-    //   model.Add("items", categoryItems);
-    //   model.Add("category", foundCategory);
-    //   return View("Show", model); //Use RedirectToAction instead of View
-    // }
+    [HttpPost("/stylists/{stylistId}/clients")]
+    public ActionResult Create(int stylistId, string clientName)
+    {
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Stylist foundStylist = Stylist.Find(stylistId);
+      Client newClient = new Client(clientName, stylistId);
+      newClient.Save();
+      List<Client> clientList = foundStylist.GetClient();
+      model.Add("client", clientList);
+      model.Add("stylist", foundStylist);
+      return View("Show", model); //Use RedirectToAction instead of View
+    }
 
   }
 }
